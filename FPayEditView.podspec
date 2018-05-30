@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "FPayEditView"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A view for pay "
   s.description  = "A view for pay show with cocoapod support."
   s.homepage     = "https://github.com/lxj916904395/FPayEditView"
