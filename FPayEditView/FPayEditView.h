@@ -58,12 +58,8 @@
 @end
 
 //键盘
-@protocol FPayKeyboardDelegate;
 @interface FPayKeyboard : UIView
-@property(assign ,nonatomic) id<FPayKeyboardDelegate> delegate;
 - (instancetype)initWithFrame:(CGRect)frame config:(FPayInputConfig *)config;
+@property(copy ,nonatomic) void (^didSelectBlock)(UIButton *btn);
 @end
 
-@protocol FPayKeyboardDelegate <NSObject>
-- (void)keyboard:(FPayKeyboard *)keyBoard didSelectItem:(UIButton *)item;
-@end

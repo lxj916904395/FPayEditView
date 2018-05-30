@@ -8,9 +8,7 @@
 #import "FPayEditView.h"
 static CGFloat _screenWidth;
 CGFloat _screenHeight;
-@interface FPayEditView ()<FPayKeyboardDelegate>{
-   
-}
+@interface FPayEditView ()
 @property(strong ,nonatomic) FPayTextFieldView * textfieldView;
 @property(strong ,nonatomic) FPayKeyboard * keyBoard;
 @property(strong ,nonatomic) FPayInputConfig * config;
@@ -31,6 +29,12 @@ CGFloat _screenHeight;
         
         [self addSubview:self.textfieldView];
         [self addObser];
+        
+        //键盘点击回调
+        __weak typeof(self)weak = self;
+        [self.keyBoard setDidSelectBlock:^(UIButton *btn) {
+            [weak keyBoardDidSelectItem:btn];
+        }];
     }
     return self;
 }
@@ -48,7 +52,6 @@ CGFloat _screenHeight;
 - (FPayKeyboard *)keyBoard{
     if (!_keyBoard) {
         _keyBoard = [[FPayKeyboard alloc] initWithFrame:CGRectMake(0, 0, _screenWidth, self.config.keyboardHeight) config:self.config];
-        _keyBoard.delegate = self;
     }
     return _keyBoard;
 }
@@ -89,7 +92,7 @@ CGFloat _screenHeight;
 
 
 #pragma mark - FPayKeyboardDelegate 键盘输入
-- (void)keyboard:(FPayKeyboard *)keyBoard didSelectItem:(UIButton *)item{
+- (void)keyBoardDidSelectItem:(UIButton *)item{
     
     NSString *currentMoneyStr = self.textfieldView.inputTextField.text;
     
@@ -335,8 +338,8 @@ CGFloat _screenHeight;
 }
 
 - (void)delegateAction:(UIButton *)btn{
-    if (_delegate && [_delegate respondsToSelector:@selector(keyboard:didSelectItem:)]) {
-        [_delegate keyboard:self didSelectItem:btn];
+    if (self.didSelectBlock) {
+        self.didSelectBlock(btn);
     }
 }
 
