@@ -11,6 +11,8 @@
 @interface FPayInputConfig : NSObject
 @property(assign ,nonatomic) CGFloat inputViewHeight;//输入框superview的高度
 @property(assign ,nonatomic) UIEdgeInsets inputTextFieldInsets;//输入框距离superview的间距
+
+@property(strong ,nonatomic) NSString *inputTextFieldPlaceholder;//输入框默认文字
 @property(strong ,nonatomic) UIFont * inputFont;//输入框文字大小
 @property(strong ,nonatomic) UIColor * inputColor;//输入框文字颜色
 @property(strong ,nonatomic) UIColor * inputTinColor;//输入框光标颜色
@@ -44,6 +46,9 @@
 @protocol FPayEditViewDelegate<NSObject>
 //点击确定
 - (void)payInputView:(FPayEditView *)payInputView doSelectConfirm:(NSString *)inputText;
+//收起
+- (void)payInputViewDoHide:(FPayEditView *)payInputView;
+
 @end
 
 //输入框

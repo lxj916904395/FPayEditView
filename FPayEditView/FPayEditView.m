@@ -68,6 +68,14 @@ CGFloat _screenHeight;
     });
 }
 
+- (void)hidenView{
+    [self hiden];
+    //通知代理界面消失
+    if (_delegate && [_delegate respondsToSelector:@selector(payInputViewDoHide:)]) {
+        [_delegate payInputViewDoHide:self];
+    }
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
@@ -75,7 +83,7 @@ CGFloat _screenHeight;
     CGRect rect = CGRectMake(0, 0, _screenWidth, self.textfieldView.frame.origin.y);
     //点击灰色区域
     if (CGRectContainsPoint(rect, point)) {
-        [self hiden];
+        [self hidenView];
     }
 }
 
@@ -131,11 +139,11 @@ CGFloat _screenHeight;
             break;
             
         case 12:
-            [self hiden];
+            [self hidenView];
             break;
         case 13:
         {
-               [self hiden];
+            [self hiden];
             //确认代理回调
             if (_delegate && [_delegate respondsToSelector:@selector(payInputView:doSelectConfirm:)]) {
                 [_delegate payInputView:self doSelectConfirm:mStr];
@@ -213,12 +221,12 @@ CGFloat _screenHeight;
     self.inputTextField.font = config.inputFont;
     self.inputTextField.textColor = config.inputColor;
     self.inputTextField.tintColor = config.inputTinColor;
+    self.inputTextField.placeholder = config.inputTextFieldPlaceholder;
 }
 
 - (UITextField *)inputTextField{
     if (!_inputTextField) {
         _inputTextField = [[UITextField alloc] init];
-        _inputTextField.placeholder = @"请输入购买数量";
         _inputTextField.textAlignment = NSTextAlignmentCenter;
     }
     return _inputTextField;
@@ -243,6 +251,14 @@ CGFloat _screenHeight;
         _viewWidth = self.frame.size.width;
         _viewHeight = self.frame.size.height;
         _config = config;
+        
+        if (!_config.keyboardDeleteImage) {
+            _config.keyboardDeleteImage = [UIImage imageNamed:@"ic_fkeyboard_delete"];
+        }
+        
+        if (!_config.keyboardHideImage) {
+            _config.keyboardHideImage = [UIImage imageNamed:@"ic_fkeyboard"];
+        }
         
         [self _createUI];
     }
