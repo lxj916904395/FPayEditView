@@ -271,7 +271,7 @@ CGFloat _screenHeight;
 
 - (void)_createUI{
     for (int i=0; i<14; i++) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitleColor:self.config.keyboardTextColor forState:UIControlStateNormal];
         btn.titleLabel.font = self.config.keyboardTextFont;
         
@@ -284,12 +284,12 @@ CGFloat _screenHeight;
                 [btn setTitle:@"." forState:UIControlStateNormal];
             } else if (i==11) {
                 //删除
-                [btn setImage:[self.config.keyboardDeleteImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+                [btn setImage:self.config.keyboardDeleteImage forState:UIControlStateNormal];
                 
                 self.deleteBtn = btn;
             }else if (i == 12){
-                //键盘
-                [btn setImage:[self.config.keyboardHideImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+                //键盘隐藏键
+                [btn setImage:self.config.keyboardHideImage forState:UIControlStateNormal];
             }
             else {
                 //确认
