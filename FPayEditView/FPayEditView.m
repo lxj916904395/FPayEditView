@@ -1,7 +1,4 @@
-//
-//  BuyEditNumView.m
-//  LeGu
-//
+////
 //  Created by 梁显杰 on 2018/5/24.
 //  Copyright © 2018年 zhongding. All rights reserved.
 //
@@ -14,7 +11,6 @@
 @property(strong ,nonatomic) FPayTextFieldView * textfieldView;
 @property(strong ,nonatomic) FPayKeyboard * keyBoard;
 @property(strong ,nonatomic) FPayInputConfig * config;
-
 @end
 @implementation FPayEditView
 
@@ -103,10 +99,14 @@
     switch (index) {
         case 0:
         {
-            if (currentMoneyStr.floatValue==0 && [currentMoneyStr containsString:@"0"] && ![currentMoneyStr containsString:@"."]) {
-                break;
+            if (@available(iOS 8.0, *)) {
+                if (currentMoneyStr.floatValue==0 && [currentMoneyStr containsString:@"0"] && ![currentMoneyStr containsString:@"."]) {
+                    break;
+                } else {
+                    [mStr appendString:@"0"];
+                }
             } else {
-                [mStr appendString:@"0"];
+                // Fallback on earlier versions
             }
             break;
         }
@@ -128,10 +128,14 @@
         }
         case 10:
         {
-            if (currentMoneyStr.length==0 || [currentMoneyStr containsString:@"."]) {
-                break;
+            if (@available(iOS 8.0, *)) {
+                if (currentMoneyStr.length==0 || [currentMoneyStr containsString:@"."]) {
+                    break;
+                } else {
+                    [mStr appendString:@"."];
+                }
             } else {
-                [mStr appendString:@"."];
+                // Fallback on earlier versions
             }
         }
             break;
@@ -218,6 +222,7 @@
 }
 
 - (void)setConfig:(FPayInputConfig *)config{
+    _config = config;
     [self.inputTextField setFrame:CGRectMake(config.inputTextFieldInsets.left, config.inputTextFieldInsets.top, self.frame.size.width-2*config.inputTextFieldInsets.left, self.frame.size.height-2*config.inputTextFieldInsets.top)];
     
     self.inputTextField.layer.borderWidth = 1;
@@ -226,8 +231,14 @@
     
     self.inputTextField.font = config.inputFont;
     self.inputTextField.textColor = config.inputColor;
-    self.inputTextField.tintColor = config.inputTinColor;
+    if (@available(iOS 7.0, *)) {
+        self.inputTextField.tintColor = config.inputTinColor;
+    } else {
+    }
     self.inputTextField.placeholder = config.inputTextFieldPlaceholder;
+    if(config.isShowInputClear){
+        self.inputTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    }
 }
 
 - (UITextField *)inputTextField{

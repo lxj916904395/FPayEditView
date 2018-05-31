@@ -30,7 +30,7 @@
 @property(assign ,nonatomic) NSInteger inputMaxLength;//最大输入长度
 @property(strong ,nonatomic) UIImage * keyboardDeleteImage;//键盘删除键图标
 @property(strong ,nonatomic) UIImage * keyboardHideImage;//键盘隐藏键图标
-
+@property(assign ,nonatomic) BOOL isShowInputClear;//是否显示输入框清除按钮
 @end
 
 
