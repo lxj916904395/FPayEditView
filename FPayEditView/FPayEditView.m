@@ -253,7 +253,7 @@
 - (instancetype)initWithFrame:(CGRect)frame config:(FPayInputConfig *)config{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = config.keyboardBackGroundColor; colorWithAlphaComponent:.3f];
+        self.backgroundColor = config.keyboardBackGroundColor;
         _viewWidth = self.frame.size.width;
         _viewHeight = self.frame.size.height;
         _config = config;
