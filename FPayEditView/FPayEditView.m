@@ -257,7 +257,13 @@
         _viewWidth = self.frame.size.width;
         _viewHeight = self.frame.size.height;
         _config = config;
+        if (!_config.keyboardHideImage) {
+            _config.keyboardHideImage = [UIImage imageNamed:@"ic_fkeyboard"];
+        }
         
+        if (!_config.keyboardDeleteImage) {
+            _config.keyboardDeleteImage = [UIImage imageNamed:@"ic_fkeyboard_delete"];
+        }
         [self _createUI];
     }
     return self;
