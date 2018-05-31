@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "FPayEditView"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "A view for pay "
   s.description  = "A view for pay show with cocoapod support."
   s.homepage     = "https://github.com/lxj916904395/FPayEditView"
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '6.0'
   s.frameworks   = 'UIKit'
   s.requires_arc = true
-  s.public_header_files = 'FPayEditView/FPayEditView.h'
+  s.public_header_files = 'FPayEditView/*.h'
   s.resources = "FPayEditView/*.png"
 
 end
