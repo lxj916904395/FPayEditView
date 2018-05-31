@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "FPayInputConfig.h"
 
+@class FPayInputConfig;
 @protocol FPayEditViewDelegate;
 @interface FPayEditView : UIView
 - (instancetype)initWithFrame:(CGRect)frame config:(FPayInputConfig *)config;
