@@ -148,7 +148,7 @@
             break;
         case 13:
         {
-            [self hiden];
+           
             //确认代理回调
             if (_delegate && [_delegate respondsToSelector:@selector(payInputView:doSelectConfirm:)]) {
                 [_delegate payInputView:self doSelectConfirm:mStr];
