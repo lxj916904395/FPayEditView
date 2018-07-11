@@ -31,21 +31,26 @@
 @property(strong ,nonatomic) UIImage * keyboardDeleteImage;//键盘删除键图标
 @property(strong ,nonatomic) UIImage * keyboardHideImage;//键盘隐藏键图标
 @property(assign ,nonatomic) BOOL isShowInputClear;//是否显示输入框清除按钮
+
 @end
 
-
+@class FPayTextFieldView;
 @protocol FPayEditViewDelegate;
 @interface FPayEditView : UIView
 - (instancetype)initWithFrame:(CGRect)frame config:(FPayInputConfig *)config;
-
+@property(strong ,nonatomic) FPayTextFieldView * textfieldView;
 @property(weak ,nonatomic) id<FPayEditViewDelegate>delegate;
 - (void)show;
 - (void)hiden;
 @end
 
 @protocol FPayEditViewDelegate<NSObject>
+
+- (void)payInputView:(FPayEditView *)payInputView textChange:(NSString *)text;
+
 //点击确定
 - (void)payInputView:(FPayEditView *)payInputView doSelectConfirm:(NSString *)inputText;
+
 //收起
 - (void)payInputViewDoHide:(FPayEditView *)payInputView;
 

@@ -8,7 +8,7 @@
     CGFloat _screenWidth;
     CGFloat _screenHeight;
 }
-@property(strong ,nonatomic) FPayTextFieldView * textfieldView;
+
 @property(strong ,nonatomic) FPayKeyboard * keyBoard;
 @property(strong ,nonatomic) FPayInputConfig * config;
 @end
@@ -152,7 +152,7 @@
             break;
         case 13:
         {
-           
+            
             //确认代理回调
             if (_delegate && [_delegate respondsToSelector:@selector(payInputView:doSelectConfirm:)]) {
                 [_delegate payInputView:self doSelectConfirm:mStr];
@@ -167,6 +167,9 @@
     
     if (self.config.inputMaxLength &&mStr.length>self.config.inputMaxLength) {
         return;
+    }
+    if (_delegate && [_delegate respondsToSelector:@selector(payInputView:textChange:)]) {
+        [_delegate payInputView:self textChange:mStr];
     }
     self.textfieldView.inputTextField.text = mStr;
 }
