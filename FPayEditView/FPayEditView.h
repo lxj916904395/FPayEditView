@@ -67,6 +67,8 @@
 @interface FPayTextFieldView : UIView
 @property (strong, nonatomic) UITextField *inputTextField;
 - (instancetype)initWithFrame:(CGRect)frame config:(FPayInputConfig *)config;
+@property(copy ,nonatomic) void(^textChangeBlock)(NSString*text);
+
 @end
 
 

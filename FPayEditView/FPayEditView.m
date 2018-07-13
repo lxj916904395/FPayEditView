@@ -33,6 +33,10 @@
         [self.keyBoard setDidSelectBlock:^(UIButton *btn) {
             [weak keyBoardDidSelectItem:btn];
         }];
+        
+        self.textfieldView.textChangeBlock = ^(NSString *text) {
+            [weak inputTextChange:text];
+        };
     }
     return self;
 }
@@ -168,10 +172,14 @@
     if (self.config.inputMaxLength &&mStr.length>self.config.inputMaxLength) {
         return;
     }
-    if (_delegate && [_delegate respondsToSelector:@selector(payInputView:textChange:)]) {
-        [_delegate payInputView:self textChange:mStr];
-    }
+    [self inputTextChange:mStr];
     self.textfieldView.inputTextField.text = mStr;
+}
+
+- (void)inputTextChange:(NSString *)text{
+    if (_delegate && [_delegate respondsToSelector:@selector(payInputView:textChange:)]) {
+        [_delegate payInputView:self textChange:text];
+    }
 }
 
 #pragma mark - 键盘坐标改变
@@ -220,6 +228,8 @@
         self.backgroundColor = [UIColor whiteColor];
         self.config = config;
         [self addSubview:self.inputTextField];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChange:) name:UITextFieldTextDidChangeNotification object:nil];
     }
     return self;
 }
@@ -250,6 +260,14 @@
         _inputTextField.textAlignment = NSTextAlignmentCenter;
     }
     return _inputTextField;
+}
+
+- (void)textChange:(NSNotification*)noti{
+    !self.textChangeBlock?:self.textChangeBlock(self.inputTextField.text);
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end
 
